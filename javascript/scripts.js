@@ -13,11 +13,14 @@
 		var publishedDate;
 		var description;
 		var description2;
+		var count = 0;
 
 //some flaws 
-//validatation of input is not implemented because of the excuse that I have written in the mail :) ... I have not implemeted functionality to add two or more search parameter
+//I have not implemeted functionality to add two or more search parameter
 		$.get(URL, function (data) {
+			count = 0;
     		$(data).find("item").each(function () { 
+    			count++;
 		        var element = $(this);
 		        header = element.find("title").text();
 		        title = header.substring(0, header.indexOf(","))
@@ -30,5 +33,9 @@
 		    	 $("#content ul").append('<li> <a href="'+link+'"> <span class="Title">'+title+' </span> <span class="Publisher">'+publisher+'</span> <span class="PublishedDate">'+publishedDate+' </span> <span class="Description">'+description2+'</span> </a> </li>');
 
     			});
+    		if(count === 0) {
+				$("#content ul").append('<li> <a href="https://duunitori.fi/"> <span class="Title"> Search result not found. </span> <span class="Publisher">Please try again with different input.</span></a> </li>');
+			}
 			});
+		
 		});			
